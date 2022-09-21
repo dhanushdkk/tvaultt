@@ -1,0 +1,553 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+  }
+  html{
+    background-image: linear-gradient(to top, #2f3545, #1d212c);
+  }
+.head{
+    display: flex;
+    justify-content: space-between;
+    height: 4rem;
+    padding: 0 5rem;
+    align-items: center;
+    background-color: #151820;
+    color:aliceblue;
+    box-shadow: 0 0.5rem 2.5rem 0 rgb(226 0 116 / 50%);
+    font-size: 1rem;
+}
+#active{
+    background-image: linear-gradient(to top, #72134b, #1d212c);
+  }
+
+#tvaultimage{
+    display: flex;
+    column-gap: 5px;
+    align-items: center;
+  }
+
+#accounts{
+  display: flex;
+  font-family: "Roboto";
+  font-size: 1rem;
+  align-items: center;
+  column-gap: 1rem;
+}
+#documents{
+  align-items: center;
+  display: flex;
+  column-gap: 5px;
+
+  }
+
+  nav a{
+    font-size: 15px;
+    height: 100%;
+    text-decoration: none;
+    color: #fff;
+  }
+
+  header{
+    display: flex;
+    justify-content: space-between;
+    height: 4rem;
+    padding: 0 5rem;
+    align-items: center;
+    background-color: #151820;
+    color:aliceblue;
+    font-size: 1.25rem;
+    box-shadow: 0 0.3rem 3rem 0rem #72134b ;
+  }
+  #tvaultlogo{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 10%;
+  }
+
+  nav {
+    display: flex;
+    font-family:'Helvetica Neue';
+    align-items: stretch;
+  }
+  nav a{
+    list-style: none;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    padding: 1.5rem 0.5rem;
+    width: 11rem;
+  }
+  nav li{
+    list-style: none;
+
+  }
+
+  nav a:hover{
+    background-image: linear-gradient(to top, #72134b, #1d212c);
+    cursor: pointer;
+    
+  }
+  #bodycontainer{
+    height:calc(100vh - 5.1rem);
+    padding:5rem 8rem;
+    color: #fff;  
+  }
+
+  #maincontainer{
+    padding:3rem 9rem;
+    color: #fff;
+    /* background-color: #1d212c; */
+  }
+
+  #subcont2{
+    display: flex;
+    flex-direction: row;
+    background-color:#151820;
+    width:40%;
+    margin-top: 8px;
+  }
+
+  #subcont3{
+    display:flex;
+    flex-direction: column;
+    /* justify-content: space-between; */   
+    padding: 0.5rem;
+    border-bottom: 1px solid #2a2e3e;
+  }
+
+  #subcont1{
+    display: flex;
+    height:calc(100vh - 11rem);
+    color:#fff;
+    font-size: 1rem;
+  }
+
+  #subcont4{
+    display: flex;
+    justify-content: space-between;
+    column-gap: 5rem;
+    align-items: center;
+    font-family: "Roboto";
+    color:#fff;
+    border-bottom: solid 0.1rem #2a2e3e;
+    padding-bottom: 0.5rem;
+  }
+  #subcont5{
+     padding-left:1.5rem;
+  }
+  #subcont6{
+    color: #ffffff;
+  }
+  #search{
+    display: flex;
+    background-color: #20232e;
+    margin-right: 1.5rem;
+  }
+
+  #search input {
+    background: #20232e;
+    width: 15rem;
+    height: 1.5rem;
+    outline: none;
+    color: #fff;
+    border: none;
+    gap: 0;
+  }
+
+  #submain{
+    /* padding: 1rem 3rem; */
+    /* padding:4rem 8rem; */
+    justify-content: center;
+  }
+  #createtext{
+    margin-left: 3rem;
+  }
+  #mainLap {
+    padding: 3rem 7rem;
+  }
+
+  #create-image{
+  padding: 1rem 7rem;
+  }
+
+  #create-pop{
+    margin-top: 1rem;
+    margin-left: 4rem;
+  }
+  #no-safes-create{
+    font-family: "Roboto";
+    color:#fff;
+    font-size: 1.25rem;
+    padding:0.5rem 0;
+  }
+
+  #safes-created{
+    font-family: "Helvetica";
+    color:#c4c4c4;
+    font-size: 0.85rem;
+  }
+
+  #secrets{
+    height:calc(100vh - 11rem);
+    gap:0;
+  }
+  #secret-cont{
+    position: absolute;
+      bottom: 4rem;
+      right: 5rem;
+  }
+  #mainsecret{
+    height:34%;
+    position: relative;
+    transform: translateY(-7px);
+  }
+
+  #secret-sub{
+    width: 47.95rem;
+      height: 64.5%;
+      padding: 1rem;
+      background-image: linear-gradient(to top, #151820, #2c3040);
+  }
+
+  #secret-sub1{
+    position: relative;
+    width:46rem;
+    display: flex;
+    padding-bottom: 1rem;
+    justify-content: space-between;
+    border-bottom: 1px solid #5e627c;
+  }
+
+  #secret-sub2{
+    height:100%;
+    width: 10rem;
+    display: flex;
+    justify-content: space-between;
+  }
+  #secrets-active{
+    color:#fff;
+    border-bottom: 5px solid #72134b;
+  }
+
+  #add-folders{
+    width: 7.5rem;
+    display: flex;
+    /* text-align: center; */
+    justify-content: space-between;
+  }
+
+  #add-fold{
+    width: 7.5rem;
+    display: flex;
+    justify-content: flex-end;
+  }
+  #add-fold p{
+    padding-top: 0.3rem;
+    color:#5e627c;
+  }
+  #locker{
+    padding: 0 5rem;
+    align-items: center;
+    text-align: center;
+  }
+
+  #locker-para{
+    padding:0 8rem;
+  }
+  #locker-image{
+    padding:1rem 15rem 0 15rem;
+   height:10rem;
+  }
+  #new-secrets{
+    display: flex;
+    justify-content: center;
+    padding: 0.5rem 0;
+    align-items: center;
+  }
+
+  #new-secrets button {
+    display: flex;
+    background-color: grey;
+    justify-content: center;
+    align-items: center;
+    padding: 0.3rem 0;
+    width: 4rem;
+  }
+
+
+  #add-sec{
+    display: flex;
+    align-items: center;
+    column-gap: 5px;
+    padding:0.25rem;
+    margin-top: 0.5rem;
+    background-color:  #5e627c; 
+  }
+  #add-img{
+    height:12px;
+  }
+
+  #addfolder_popup{
+  box-shadow: -15rem -15rem 55rem 55rem rgb(8 8 8 / 70%);
+
+
+  }
+
+  .popup{
+  position: fixed;
+  z-index: 1000;
+  color: #fff;
+  top:6rem;
+  left:25rem;
+  right:25rem;
+  width:50%;
+  height:80%;
+  background-color: #2c3040;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 6rem;
+  box-shadow: -15rem -15rem 55rem 55rem rgb(8 8 8 / 70%);
+  }
+  #inputbox{
+    width: 100%;
+    padding: 1rem;
+    height: 30%;
+    outline: none;
+    margin-top: 0.8rem;
+  }
+
+  .subpopup{
+    position: absolute;
+    padding: 7rem 3.5rem;
+    }
+    .subpopup button{
+      padding:0.5rem;
+      color:#72134b;
+      text-align: center;
+      width:10rem;
+    }
+    .popup-cont{
+      display: flex;
+      column-gap: 1rem;
+      padding:1rem 0;
+    }
+    .input-area p{
+    padding: 0.5rem 0;
+    }
+    .input-area input{
+    height:2rem;
+    width:41rem;
+    padding:0.5rem;
+    outline: none;
+    }
+    #pop_button{
+      display: flex;
+      justify-content: flex-end;
+      column-gap: 5px;
+    }
+
+    #pop_button button{
+      width:5rem;
+      height:2rem;
+      padding:0.5rem;
+      text-align: center;
+    }
+    
+    #addfolder_popup{
+    position: fixed;
+    z-index: 1000;
+    top:15rem;
+    left:30rem;
+    width:35%;
+    height:18rem;
+    padding: 3rem;
+    background-color: #2c3040;
+    }
+    #addfolder_popup h2{
+    text-align: left;
+    padding-bottom:1.5rem ;
+    }
+
+    #folderin{
+      text-align: left; 
+      color:#fff;
+      font-size: 15px;
+      padding:0.4rem;
+      padding-left: 0;
+    }
+    #wrong{
+      text-align: left; 
+      color:#5e627c;
+      font-size: 10px;
+      padding:0.4rem;
+      padding-left: 0;
+    }
+    #addfolder_popup input{
+    padding:0.5rem;
+    height:2.5rem;
+    outline: none;
+    width:100%;
+    }
+    #popup_folderbtn{
+      display: flex;
+      justify-content: flex-end;
+    }
+    #popup_folderbtn button{
+      width:5rem;
+      height:2rem;
+      padding:0.5rem;
+      margin: 0.5rem 0;
+      text-align: center;
+      color:#72134b
+    }
+
+
+
+    .save_before{
+      padding:0.5rem 1rem;
+      margin-left: 0.5rem;
+      background: #454c5e;
+      color:white;
+      outline: none;
+      border: none;
+    }
+    
+    .save_after{
+      padding:0.5rem 1rem;
+      margin-left: 0.5rem;
+      background:#e20074;
+      color:white;
+      outline: none;
+      border: none;
+    }
+    .button_rose{
+      background-color: #e20074;
+      outline: none;
+      border: none;
+      color: white;
+      margin-left: 0.5rem; 
+      padding: 0.3rem 1rem;
+    }
+    .button_grey{
+      background-color:#8b8ea6;;
+      outline: none;
+      border: none;
+      color: white;
+      margin-left: 0.5rem; 
+      padding: 0.3rem 1rem;
+    }
+
+
+    #addfolder_popup{
+      position: fixed;
+      z-index: 1000;
+    top:15rem;
+    left:30rem;
+    width:35%;
+    height:18rem;
+    padding: 2rem;
+    box-shadow:-15rem 15rem 50rem 50rem rgb( 8 8 8 / 60%);
+    background-color: #2c3040;
+    }
+    #addfolder_popup h2{
+      color: white;
+    text-align: left;
+    padding-bottom:1.5rem ;
+    }
+    #folderin{
+      text-align: left; 
+      color:#fff;
+      font-size: 15px;
+      padding:0.4rem;
+      padding-left: 0;
+    }
+    #wrong{
+      text-align: left; 
+      color:#5e627c;
+      font-size: 10px;
+      padding:0.4rem;
+      padding-left: 0;
+    }
+    #addfolder_popup input{
+    padding:0.5rem;
+    height:2.5rem;
+    outline: none;
+    width:100%;
+    }
+    #popup_folder_btn{
+      display: flex;
+      justify-content: flex-end;
+      padding:1.5rem 0;
+      column-gap: 5px;
+    }
+    #popup_folder_btn button{
+      width:5rem;
+      height:2rem;
+      padding:0.5rem;
+      margin: 0.5rem 0;
+      text-align: center;
+      color:#72134b;
+      font-size: 14px;
+    }
+
+    #listcontainer{
+      display: flex;
+      width: 10%;
+    }
+
+
+
+
+
+
+    /* #listcontainer{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      text-align: center;
+      width:25rem;
+      background-image: linear-gradient(to top, #72134b, #1d212c);
+    } */
+    #editanddeletebutton{
+      display: flex;
+      column-gap: 5px;
+    }
+    #editanddeletebutton img{
+     width:25px;
+     height:25px;
+    }
+    #createimageList{
+      display: flex;
+      justify-content: baseline;
+    }
+
+
+
+    #list-create-image{
+      /* padding:1rem; */
+    }
+    #listcontainer{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      text-align: center;
+      width:28rem;
+      padding:0.675rem;
+      background-image: linear-gradient(to top, #72134b, #1d212c);
+    }
+    #editanddeletebutton{
+      padding-right:0.5rem;
+      display: flex;
+      column-gap: 25px;
+    }
+    #editanddeletebutton img{
+     width:25px;
+     height:25px;
+    }
+   
