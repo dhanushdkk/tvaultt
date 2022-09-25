@@ -1,52 +1,60 @@
 import React from "react";
-import { useState } from "react";
+import { useState  } from "react";
 import { useDispatch } from "react-redux";
-// import { addListpop } from '../Redux/configure';
-import { v4 as uuid } from "uuid";
+import {addSecret} from "../Redux/configure"
+import { useSelector } from "react-redux";
 export default function Addfolder(props) {
-  const [condition, setCondition] = useState("");
-  const seperateid = uuid();
-  const id = seperateid.slice(0, 6);
   const dispatch = useDispatch();
+  const curId = useSelector((state) => state.users.curId);
+  const [secret, setSecret] = useState("");
   return (
     <div id="addfolder_popup">
       <h2>Add Folder</h2>
       <p id="folderin">Folder Name</p>
-      <input type="text" placeholder="enter folder name" />
+      <input
+        type="text"
+        value={secret}
+        placeholder="enter folder name"
+        onChange={(e) => setSecret(e.target.value)}
+      />
       <p id="wrong">
-        Please enter a minimum of 3 characters lowercase alphabets numbebr and
-        underscores only.{" "}
+        Please enter lowercase alphabets, numbers and underscores only.{" "}
       </p>
-      <div id="popup_folder_btn">
-        <button onClick={() => props.close()}>Cancel</button>
-        {condition.length <= 10 && (
+      <div id="popup_folder_button">
+        <button id="popup_button_cancel" onClick={() => props.close()}>
+          Cancel
+        </button>
+        {secret.length <= 1 && (
           <button
             type="submit"
-            className="save_before"
+            id="popup_button_button"
             onClick={() => {
               props.close();
             }}
           >
-            Save
-          </button>
+         Create
+       </button>
         )}
-        {condition.length > 10 && (
+        {(secret.length>1&&
+        (
           <button
-            type="submit"
-            className="save_after"
-            onClick={() => {
-              //   dispatch(addListpop({
-              //    id: id,
-              //    condition,
-              //   }));
-              props.close();
-              setCondition(" ");
-            }}
-          >
-            Save
-          </button>
+          type="submit"
+          id="button_rose"
+          onClick={() => {
+            dispatch(
+              addSecret({
+                curId: curId,
+                secret,
+              })
+            );
+            props.close();
+          }}
+        >
+          Create
+        </button>
+        )
         )}
       </div>
     </div>
   );
-}
+  }

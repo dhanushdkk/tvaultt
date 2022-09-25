@@ -1,32 +1,53 @@
-import React from "react";
-import { useSelector , useDispatch} from "react-redux";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { useState } from "react";
 import searchicon from "../assets/search_icon.png";
 import mainLap from "../assets/mainLap.png";
-import mainImage from "../assets/shieldimage.png";
+import { debounce } from "lodash";
 import create from "../assets/all-safes-create.png";
 import locker from "../assets/locker.png";
 import Popupsafe from "../Popup";
-import Popup from 'reactjs-popup';
-import folder from "../assets/add-folder.png"
-import addiconfolder from "../assets/icon_add.png";  
+import Popup from "reactjs-popup";
+import folder from "../assets/add-folder.png";
+// import addiconfolder from "../assets/icon_add.png";
 import FolderAdd from "../Add_folder";
-import ListSafe from "../assets/shield-safe.png"
-import editImage from "../assets/editimage.png"
-import deleteImage from "../assets/deleteimage.png"
-import { removeSafe } from "../../Redux/configure"; 
-
-function Safes() {
-
-  const userList=useSelector((state)=>state.users.value);
-  const [blankpage, setBlankpage] = useState('addbutton');
+import add from "../assets/icon_add.png";
+import ListSafe from "../assets/shield-safe.png";
+import folderPink from "../assets/folderpink.png";
+import deleteImage from "../assets/deleteimage.png";
+import addsecretimg from "../assets/addsecretimg.png"
+import {
+  deleteSafe,
+  deleteSecret,
+  removeSafe,
+  setCurId,
+} from "../../Redux/configure";
+import SafeEditPopup from "../Headbar/SafeEditPopup";
+import SafeDetails from "../safeDetails";
+export default function Safes() {
+  const currentId = useSelector((state) => state.users.curId);
+  // const userList = useSelector((state) => state.users.value);
+  const secretList = useSelector((state) => state.users.value);
+  const [selectedSafe, setSelectedSafe] = useState([]);
+  const deletedispatch = useDispatch();
+  const secretDispatch = useDispatch();
+  useEffect(() => {
+    if (currentId !== "" && userList && userList.length) {
+      const filteredSafe = userList.filter((item) => item.id === currentId);
+      setSelectedSafe(filteredSafe);
+    }
+  }, [currentId]);
+  const userList = useSelector((state) => state.users.value);
+  const [blankpage, setBlankpage] = useState("addbutton");
   const update_blank = () => {
-    setBlankpage('button_update')
-  }
-  const deletedispatch=useDispatch();
+    setBlankpage("button_update");
+  };
+  const count = userList.length; //count
 
-  console.log(userList);
-
+  const [searchItem, setNewItem] = useState(""); //search
+  const handleText = debounce((text) => {
+    setNewItem(text);
+  }, 1000);
 
   return (
     <div id="maincontainer">
@@ -40,110 +61,307 @@ function Safes() {
                     {" "}
                     <b>All safes</b>
                   </span>
-                  (0)
+                  &#40;{count}&#41;
                 </div>
               </div>
 
               <div id="search">
                 <img src={searchicon} alt="search" />
-                <input type="text" placeholder="Search safes" />
+                <input
+                  type="text"
+                  placeholder="Search safes"
+                  onChange={(event) => {
+                    handleText(event.target.value);
+                  }}
+                />
               </div>
             </div>
-            <div id="submain">
-            {userList.length <= 0 && (
-              <div>
-                <img id="mainLap" src={mainLap} alt="search" />
-                <p id="createtext" >Create a Safe and get started!</p>
-                <Popup
-                  trigger={
-                    <img
-                      id="create-image"
-                      src={create}
-                      alt="create"
-                      onClick={update_blank}
-                    />
-                  }
-                  modal
-                  nested
-                >
-                  {(close) => <Popupsafe close={close} />}
-                </Popup>
-              </div>
-            )}
-            {userList.map((user) => {
-              return (
-                <div id="listcontainer">
-                  <div id="shieldimage">
-                    <img src={ListSafe} alt="safe" />
-                  </div>
-                  <div id="nameandowner">
-                    <div>{user.name}</div>
-                    <div>{user.username}</div>
-                  </div>
-                  <div id="editanddeletebutton">
-                    <img src={editImage} alt="edit" />
-                    <img
-                      src={deleteImage}
-                      alt="delete"
-                      onClick={() => {
-                        deletedispatch(removeSafe({ id: user.id }));
-                      }}
-                    />
-                  </div>
+            <div className={userList <= 0 ? "computer" : "Listcomputer"}>
+              {userList.length <= 0 && (
+                <div>
+                  <img id="mainLap" src={mainLap} alt="search" />
+                  <p id="createtext">Create a Safe and get started!</p>
+                  <Popup
+                    trigger={
+                      <img
+                        id="create-image"
+                        src={create}
+                        alt="create"
+                        onClick={update_blank}
+                      />
+                    }
+                    modal
+                    nested
+                  >
+                    {(close) => <Popupsafe close={close} />}
+                  </Popup>
                 </div>
-              );
-            })}
-            {userList.length > 0 && (
-              <div>
-                <Popup
-                  trigger={
-                    <img
-                      id="list-create-image"
-                      src={create}
-                      alt="create"
-                      onClick={update_blank}
-                    />
+              )}
+              {userList.filter((val) => {
+                if (
+                  val.name
+                    .toLocaleLowerCase()
+                    .includes(searchItem.toLocaleLowerCase())
+                ) {
+                  return val;
+                }
+              }).length === 0 &&
+                userList.length > 0 && (
+                  <div id="nosafefound">No Safe Found!</div>
+                )}
+              {userList
+                .filter((val) => {
+                  if (
+                    val.name
+                      .toLocaleLowerCase()
+                      .includes(searchItem.toLocaleLowerCase())
+                  ) {
+                    return val;
                   }
-                  modal
-                  nested
-                >
-                  {(close) => <Popupsafe close={close} />}
-                </Popup>
-              </div>
-)}
-          </div>
-        </div>
-          
-          <div id="secrets">
-            <div id="mainsecret">
-              <img src={mainImage} alt="main" />
-              <div id="secret-cont">
-                <p id="no-safes-create">No Safes Created Yet</p>
-                <p id="safes-created">
-                  Create a Safe to see your secrets, folders and permissions
-                  here
-                </p>
-              </div>
+                })
+                .map((user) => {
+                  return (
+                    <div
+                      className={
+                        currentId === user.id ? "activesafe" : "safes-list"
+                      }
+                      onClick={() => {
+                        deletedispatch(setCurId({ id: user.id }));
+                      }}
+                      key={user.id}
+                    >
+                      <div className="listcontainer">
+                        <div id="shieldimage">
+                          <img src={ListSafe} alt="safe" />
+                        </div>
+                        <div id="nameandowner">
+                          <div id="updatename">{user.name}</div>
+                          <div id="updatesec">Last updated a second ago </div>
+                        </div>
+                        <div id="editanddeletebutton">
+                          <SafeEditPopup
+                            id={user.id}
+                            name={user.name}
+                            username={user.username}
+                            type={user.type}
+                            description={user.description}
+                            secret={user.secret}
+                          />
+                          <div id="imagehover">
+                            <img
+                              src={deleteImage}
+                              alt="delete"
+                              onClick={() => {
+                                deletedispatch(removeSafe({ id: user.id }));
+                              }}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              {userList.length > 0 && (
+                <div>
+                  <Popup
+                    trigger={
+                      <img
+                        id="list-create-image"
+                        src={create}
+                        alt="create"
+                        onClick={update_blank}
+                      />
+                    }
+                    modal
+                    nested
+                  >
+                    {(close) => <Popupsafe close={close} />}
+                  </Popup>
+                </div>
+              )}
             </div>
+          </div>
+
+          <div id="secrets">
+            <SafeDetails selectedSafe={selectedSafe} />
             <div id="secret-sub">
               <div id="secret-sub1">
                 <div id="secret-sub2">
                   <p>Secrets</p>
                 </div>
                 <div id="add-fold">
-                <Popup trigger={<img src={folder} alt="folder" />} modal nested>
-                  {(close) => (
-                    <FolderAdd close={close} />
+                  {userList.length <= 0 && <img src={folder} alt="folder" />}
+                  {userList.length > 0 && (
+                    <Popup
+                      trigger={<img src={folder} alt="folder" />}
+                      modal
+                      nested
+                    >
+                      {(close) => <FolderAdd close={close} />}
+                    </Popup>
                   )}
-                </Popup>
                 </div>
               </div>
               <div id="counting">
-                <p>0 secrets</p>
+                <p id="lightcolor">
+                  {secretList.map((value, index) => {
+                    return (
+                      value.id === currentId && (
+                        <div>
+                          {" "}
+                          {value.secret.length}
+                          secrets
+                        </div>
+                      )
+                    );
+                  })}
+                  </p>
+                {secretList.length === 0 && (
+                <div id="locker">
+                  <img id="locker-image" src={locker} alt="icon" />
+                  <p id="locker-para">
+                    Add a <span id="white">Folder</span> and then you’ll be able
+                    to add <span id="white"> Secrets</span> to view them all
+                    here
+                  </p>
+                  <div id="create-secrets">
+                    <div id="add-secrets">
+                      {userList.length <= 0 && (
+                        <button id="add-secrets-button">
+                          {/* <img id="add-secrets-image" src={add} alt="add" /> */}
+                          <p>+ Add</p>
+                        </button>
+                      )}
+                      {userList.length > 0 && (
+                        <Popup
+                          trigger={
+                            <button id="add-secrets-pink">
+                              {/* <img
+                                id="add-secrets-image-pink"
+                                src={add}
+                                alt="add"
+                              /> */}
+                              <p>+ Add</p>
+                            </button>
+                          }
+                          modal
+                          nested
+                        >
+                          {(close) => (
+                            <FolderAdd currentId={currentId.id} close={close} />
+                          )}
+                        </Popup>
+                      )}
+                    </div>
+                  </div>
+                </div>
+                )}
+                {secretList.map((value) => {
+                  return (
+                    value.secret.length === 0 && value.id === currentId &&(
+                      <div id="locker">
+                  <img id="locker-image" src={locker} alt="icon" />
+                  <p id="locker-para">
+                    Add a <span id="white">Folder</span> and then you’ll be able
+                    to add <span id="white"> Secrets</span> to view them all
+                    here
+                  </p>
+                  <div id="create-secrets">
+                    <div id="add-secrets">
+                      {userList.length <= 0 && (
+                        <button id="add-secrets-button">
+                          {/* <img id="add-secrets-image" src={add} alt="add" /> */}
+                          <p>+ Add</p>
+                        </button>
+                      )}
+                      {userList.length > 0 && (
+                        <Popup
+                          trigger={
+                            <button id="add-secrets-pink">
+                              {/* <img
+                                id="add-secrets-image-pink"
+                                src={add}
+                                alt="add"
+                              /> */}
+                              <p>+ Add</p>
+                            </button>
+                          }
+                          modal
+                          nested
+                        >
+                          {(close) => (
+                            <FolderAdd currentId={currentId.id} close={close} />
+                          )}
+                        </Popup>
+                      )}
+                    </div>
+                  </div>
+                </div>
+                    ))}
+                  )}
+                  <div >
+                {secretList.map((value, index) => {
+                  {
+                    secretList.map((value) => {
+                      return <div> {value.secret.length}</div>;
+                    });
+                  }
+                  return value.id === currentId ? (
+                    <div key={index}>
+                      {value.secret.map((secretsitem, index) => {
+                        // console.log(secretsitem);
+                        return (
+                          <div className="secretArrange">
+                          <div key={index} className="list_of_secrets">
+                            <div className="flexcontainer">
+                              <div id="addsecretimgg">
+                                <img src={addsecretimg} alt="folder" />
+                              </div>
+                              <div>
+                                <p>{secretsitem}</p>
+                                <span id="lastUpdated">
+                                  Last Updated: a few seconds ago
+                                </span>
+                              </div>
+                            </div>
+                            <div>
+                              <img
+                                src={deleteImage}
+                                alt="delete"
+                                onClick={() =>
+                                  secretDispatch(
+                                    deleteSecret({
+                                      id: secretsitem,
+                                    })
+                                  )
+                                }
+                              />
+                            </div>
+                          </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  ) : (
+                    ""
+                  );
+                })}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+{
+  /* <p>0 secrets</p>
                 <div id="locker">
                   <img id="loc-img" src={locker} alt="img" />
                   <p id="lock-cont">
-                    Add a folder and then you'll be able to add Secrets to view
+                    Add a <span id="white">folder</span> and then you'll be able to add <span id="white">Secrets</span> to view
                     them all here
                   </p>
                   <div id="new-secrets">
@@ -165,4 +383,5 @@ function Safes() {
   );
 }
 
-export default Safes;
+export default Safes; */
+}
