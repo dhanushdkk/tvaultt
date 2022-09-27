@@ -24,7 +24,7 @@ function Topmain() {
         <div className="nav">
           {" "}
           <ul className="nav_list">
-            <NavLink to="/" activeClassName="active">
+            <NavLink to="/safes" activeClassName="active">
               <li>Safes</li>
             </NavLink>
 
@@ -55,9 +55,8 @@ function Topmain() {
           </div>
         </div>
       </header>
-
       <Routes>
-        <Route path="/" element={<Safes />} />
+        <Route path="/safes" element={<Safes />} />
         <Route path="/Vault/:id" element={<Vault_approles />} />
         <Route path="/Service" element={<Service_acnt />} />
         <Route path="/IamService" element={<IAM_SA />} />

@@ -22,9 +22,15 @@ export const UserSlice =createSlice({
               }
             });
           },
-          removeSafe:(state,action)=>{
-            state.value=state.value.filter((user)=>user.id !== action.payload.id);
-           },
+          removeSafe: (state, action) => {
+            state.value.forEach((user, index) => {
+              if (user.id === action.payload.id) {
+                state.value.splice(index, 1);
+              }
+            });
+            state.curId =
+              state.value.length > 0 ? state.value[state.value.length - 1].id : "";
+          },
            
           addSecret: (state, action) => {
            state.value.forEach((user) => {

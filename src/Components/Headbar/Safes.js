@@ -9,13 +9,14 @@ import locker from "../assets/locker.png";
 import Popupsafe from "../Popup";
 import Popup from "reactjs-popup";
 import folder from "../assets/add-folder.png";
-// import addiconfolder from "../assets/icon_add.png";
 import FolderAdd from "../Add_folder";
 import add from "../assets/icon_add.png";
 import ListSafe from "../assets/shield-safe.png";
 import folderPink from "../assets/folderpink.png";
 import deleteImage from "../assets/deleteimage.png";
 import addsecretimg from "../assets/addsecretimg.png"
+import moment from 'moment';
+import secretimggrey from "../assets/secretimggrey.png"
 import {
   deleteSafe,
   deleteSecret,
@@ -26,18 +27,25 @@ import SafeEditPopup from "../Headbar/SafeEditPopup";
 import SafeDetails from "../safeDetails";
 export default function Safes() {
   const currentId = useSelector((state) => state.users.curId);
-  // const userList = useSelector((state) => state.users.value);
   const secretList = useSelector((state) => state.users.value);
   const [selectedSafe, setSelectedSafe] = useState([]);
   const deletedispatch = useDispatch();
   const secretDispatch = useDispatch();
+  const userList = useSelector((state) => state.users.value);
   useEffect(() => {
     if (currentId !== "" && userList && userList.length) {
       const filteredSafe = userList.filter((item) => item.id === currentId);
       setSelectedSafe(filteredSafe);
     }
   }, [currentId]);
-  const userList = useSelector((state) => state.users.value);
+  const [userListValue, setUserListValue] = useState([]);
+  useEffect(() => {
+    setUserListValue(userList);
+  }, [userList]);
+  function stop(e) {
+    e.stopPropagation();
+  }
+  
   const [blankpage, setBlankpage] = useState("addbutton");
   const update_blank = () => {
     setBlankpage("button_update");
@@ -136,7 +144,10 @@ export default function Safes() {
                         </div>
                         <div id="nameandowner">
                           <div id="updatename">{user.name}</div>
-                          <div id="updatesec">Last updated a second ago </div>
+                          <div id="updatesec">
+                            {
+                            moment().startOf('minute').fromNow()
+                            }</div>
                         </div>
                         <div id="editanddeletebutton">
                           <SafeEditPopup
@@ -151,7 +162,8 @@ export default function Safes() {
                             <img
                               src={deleteImage}
                               alt="delete"
-                              onClick={() => {
+                              onClick={(e) => {
+                                stop(e);
                                 deletedispatch(removeSafe({ id: user.id }));
                               }}
                             />
@@ -183,7 +195,7 @@ export default function Safes() {
           </div>
 
           <div id="secrets">
-            <SafeDetails selectedSafe={selectedSafe} />
+            <SafeDetails selectedSafe={userListValue} />
             <div id="secret-sub">
               <div id="secret-sub1">
                 <div id="secret-sub2">
@@ -270,7 +282,7 @@ export default function Safes() {
                     <div id="add-secrets">
                       {userList.length <= 0 && (
                         <button id="add-secrets-button">
-                          {/* <img id="add-secrets-image" src={add} alt="add" /> */}
+                          {/* <img id="add-secre  ts-image" src={add} alt="add" /> */}
                           <p>+ Add</p>
                         </button>
                       )}
@@ -315,17 +327,20 @@ export default function Safes() {
                           <div key={index} className="list_of_secrets">
                             <div className="flexcontainer">
                               <div id="addsecretimgg">
-                                <img src={addsecretimg} alt="folder" />
+                                <img id="greyfold" src={secretimggrey} alt="folder"/>
+                                <img id ="pinkfolder" src={addsecretimg} alt="folder" />
                               </div>
                               <div>
                                 <p>{secretsitem}</p>
                                 <span id="lastUpdated">
-                                  Last Updated: a few seconds ago
+                                {
+                                  moment().startOf('minute').fromNow()
+                                }
                                 </span>
                               </div>
                             </div>
                             <div>
-                              <img
+                              <img id="delsecret"
                                 src={deleteImage}
                                 alt="delete"
                                 onClick={() =>

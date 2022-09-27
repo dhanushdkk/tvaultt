@@ -181,30 +181,16 @@
     border: none;
     gap: 0;
   }
- 
-
-
-  #submain{
-    /* display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 0.5rem 0;
-    height: 30rem;
-    margin-top: 1rem; */
-    /* -ms-overflow-style: none;  
-    scrollbar-width: none;
-      overflow-y: scroll; */
-  }
-
-  /* #submain::-webkit-scrollbar {
-    display: none;
-  } */
   #shieldimage{
     width: 8%;
   }
 
   #nameandowner{
-    margin-right: 6rem;
+    flex-direction: column;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin-right: 11rem;
   }
   #createtext{
     font-size: 13px;
@@ -230,7 +216,7 @@
     color: #5e627c;
   }
   #updatename{
-    margin-left: 6px;
+    /* margin-left: 6px; */
     font-size: 1rem;
   }
 
@@ -297,6 +283,9 @@
     font-weight: bold;
     justify-content: space-between;
     border-bottom: 1px solid #5e627c;
+  }
+  #textareare{
+    resize: none;
   }
   
 
@@ -409,6 +398,7 @@
   box-shadow: -15rem -15rem 55rem 55rem rgb(8 8 8 / 70%);
   }
   #inputbox{
+    resize: none;
     width: 100%;
     padding: 1rem;
     height: 30%;
@@ -740,4 +730,25 @@
     #addsecretimgg img{
       height: 30px;
       width: 30px;
+    }
+    #pinkfolder{
+      display: none;
+    }
+    .list_of_secrets:hover #greyfold{
+      display: none;
+    }
+    .list_of_secrets:hover #pinkfolder{
+      display: inline;
+    }
+    #delsecret{
+      display: none;
+    }
+    .list_of_secrets:hover #delsecret{
+      display: inline;
+    }
+    #imagehover{
+      display: none;
+    }
+    .listcontainer:hover #imagehover{
+      display: inline;
     }

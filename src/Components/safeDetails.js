@@ -1,12 +1,18 @@
 import React from 'react'
 import mainImage from "../Components/assets/shield-image.png";
 import { useSelector } from "react-redux";
+import { useState , useEffect } from 'react';
 
-export default function SafeDetails(props) {
+export default function SafeDetails() {
   const currentId = useSelector((state) => state.users.curId);
+  const userList = useSelector((state) => state.users.value);
+  const [safeId, setSafeId] = useState([]);
+  useEffect(() => {
+    setSafeId(currentId);
+  }, [userList]);
   return (
     <div id='secretshead'>
-        {props.selectedSafe.length===0? (
+        {userList.length===0? (
          <div id="mainsecret">
               <img src={mainImage} alt="main" />
               <div id="secret-cont-empty">
@@ -20,18 +26,18 @@ export default function SafeDetails(props) {
         ): (
           ""
         )}
-        {props.selectedSafe.map((value, index) => {
+        {userList.map((value) => {
           return(
-            value.id === currentId && (
+            value.id === currentId ? (
               <div id='mainsecret'>
                  <img src={mainImage} alt="main" />
             <div id="secret-cont">
-              <p id="no-safes-create">{props.selectedSafe[0].name}</p>
-              <p id="safes-created">{props.selectedSafe[0].description}</p>
+              <p id="no-safes-create">{value.name}</p>
+              <p id="safes-created">{value.description}</p>
               </div>
               </div>
 
-            )
+            ):("")
           );
         })}
         </div>
